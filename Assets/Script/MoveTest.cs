@@ -6,29 +6,31 @@ public class MoveTest : MonoBehaviour
 {
 
     public GameObject cube1;
+    public float speedCube2 = 1f;
 
     private Rigidbody rb;
-    private bool checkClick = false;
     // Start is called before the first frame update
     void Start()
     {
         rb = cube1.GetComponent<Rigidbody>();
     }
 
-    /// <summary>
-    /// OnMouseDown is called when the user has pressed the mouse button while
-    /// over the GUIElement or Collider.
-    /// </summary>
-    private void OnMouseDrag()
+    private void OnMouseDown()
     {
         if(this.name == "Cube2"){
-            rb.velocity = Vector3.MoveTowards(-cube1.transform.position, this.transform.position, 10f);
-        }  
+            rb.MovePosition(this.transform.position);
+        }
     }
 
+    private void OnMouseDrag()
+    {
+        if(this.name == "Cube3"){
+            cube1.transform.position = Vector3.MoveTowards(cube1.transform.position, this.transform.position, speedCube2);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }
