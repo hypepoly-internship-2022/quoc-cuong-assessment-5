@@ -5,39 +5,62 @@ using UnityEngine;
 public class MoveTest : MonoBehaviour
 {
 
-    public GameObject cube1;
-    public float speedCube2 = 1f;
+    public GameObject cube2;
+    public GameObject cube3;
+    public float maxSpeed = 10f;
+
+
     private Rigidbody rb;
-    private bool checkCLick = false;
+    private Vector3 curPos;
+    private bool isClick = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = cube1.GetComponent<Rigidbody>();
+        curPos = this.transform.position;
+        rb = this.GetComponent<Rigidbody>();
     }
 
-    void CubeMove()
-    {
-        if(this.name == "Cube2"){
-            rb.velocity = this.transform.position - cube1.transform.position;
-        }
-        if(this.name == "Cube3"){
-            rb.velocity = this.transform.position - cube1.transform.position;
-        }
-    }
+    // void MoveCube()
+    // {
+    //     if(this.name == "Cube3"){
+    //         rb.velocity = this.transform.position - cube1.transform.position;
+    //         Debug.Log(this.name);
+    //     }
 
-    void OnMouseDown() {
-        checkCLick = true;
-    }
+    //     if(this.name == "Cube2"){
+    //         rb.velocity = this.transform.position - cube1.transform.position;
+    //         Debug.Log(this.name);
+    //     }
+    // }
 
-    void OnMouseUp() {
-        checkCLick = false;
-    }
     // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
-        if(checkCLick == true){
-            CubeMove();
+        if(Input.GetMouseButton(0)){
+            isClick = true;
+        } else{
+            isClick = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(isClick == true){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit)){
+                Debug.Log(hit.collider.name);
+                if(hit.collider.name == "Cube2"){
+                    rb.velocity = cube2.transform.position - curPos;
+                }
+                if(hit.collider.name == "Cube3"){
+                    rb.velocity = cube3.transform.position - curPos;
+                }
+            }
+        }else{
+            rb.velocity = new Vector3(0, 0, 0);
         }
     }
 }
