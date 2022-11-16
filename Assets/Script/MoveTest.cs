@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MoveTest : MonoBehaviour
 {
@@ -12,11 +13,18 @@ public class MoveTest : MonoBehaviour
 
     private Rigidbody rb;
     private bool isClick = false;
+    private Vector3 curPos2;
+    private Vector3 curPos3;
+    private float speedImNeed;
+    private float speedCube2;
+    private float speedCube3;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+        curPos2 = cube2.transform.position - this.transform.position;
+        speedImNeed = curPos2.x;
     }
 
     void MoveCube()
@@ -25,10 +33,10 @@ public class MoveTest : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit)){
             if(hit.collider.name == "Cube2"){
-                rb.velocity = cube2.transform.position - this.transform.position;
+                rb.velocity = curPos2 * speedCube2/speed;
             }
             if(hit.collider.name == "Cube3"){
-                rb.velocity = cube3.transform.position - this.transform.position;
+                rb.velocity = curPos3 * speedCube3/speed;
             }
         }
     }
@@ -40,6 +48,11 @@ public class MoveTest : MonoBehaviour
             isClick = true;
         } else{
             isClick = false;
+            curPos2 = cube2.transform.position - this.transform.position;
+            curPos3 = cube3.transform.position - this.transform.position;
+
+            speedCube2 = Math.Abs(speedImNeed / curPos2.x);
+            speedCube3 = Math.Abs(speedImNeed / curPos3.x);
         }
     }
 

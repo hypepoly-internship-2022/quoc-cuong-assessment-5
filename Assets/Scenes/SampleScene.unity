@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cube2: {fileID: 1202621973}
   cube3: {fileID: 389209588}
-  speed: 5
+  speed: 10
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
