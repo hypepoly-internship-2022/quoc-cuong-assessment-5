@@ -20,14 +20,14 @@ public class MoveTest : MonoBehaviour
     private float speedCube3;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         rb = this.GetComponent<Rigidbody>();
         curPos2 = cube2.transform.position - this.transform.position;
         speedINeed = curPos2.x;
     }
 
-    void MoveCube()
+    private void MoveCube()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
